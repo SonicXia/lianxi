@@ -2,7 +2,7 @@ package com.sonic.IO;
 
 import java.io.Serializable;
 
-class Employee implements Serializable {
+public class Employee implements Serializable {
 	private transient String name; // transient 抹去关键信息，该数据不序列化（Employee{name='null', age=18}）
 	private Integer age;
 
