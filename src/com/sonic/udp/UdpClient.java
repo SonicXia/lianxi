@@ -5,7 +5,7 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 
 /**
- * 发送端
+ * 基本流程：发送端
  *
  * 1、使用 DatagramSocket指定端口，创建发送器
  * 2、准备数据，一定要转成【字节数组】
