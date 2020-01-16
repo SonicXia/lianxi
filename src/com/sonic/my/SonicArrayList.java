@@ -8,10 +8,10 @@ public class SonicArrayList<E> {
 	private Object[] elementData;
 	private int size; // 类似于当前最大位置的指针
 
-	private static final int DEFAULT_CAPACITY = 10;
+	private static final int DEFAULT_CAPACITY = 10; // jdk8默认初始创建 list容量为10
 
 	public SonicArrayList() {
-		elementData = new Object[DEFAULT_CAPACITY];
+		elementData = new Object[DEFAULT_CAPACITY]; // 赋初始容量10
 	}
 
 	public SonicArrayList(int capacity) {
@@ -25,8 +25,9 @@ public class SonicArrayList<E> {
 	}
 
 	public void add(E element) {
+		// 数组扩容（扩容后的大小为上一次容量的1.5倍，即：10*1.5*1.5*1.5...）
 		if (size == elementData.length) {
-			Object[] newArray = new Object[elementData.length + (elementData.length >> 1)];
+			Object[] newArray = new Object[elementData.length + (elementData.length >> 1)]; // >> 1：相当于除以2
 			System.arraycopy(elementData, 0, newArray, 0, elementData.length);
 			elementData = newArray;
 		}

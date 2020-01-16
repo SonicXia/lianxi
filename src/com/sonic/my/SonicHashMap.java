@@ -20,7 +20,7 @@ public class SonicHashMap<K, V> {
 	 */
 	public void put(K key, V value) {
 
-		// TODO: 2019/12/13  考虑数组自动扩容
+		// TODO: 2019/12/13  考虑数组自动扩容：初始16，每次扩容后的大小为上一次容量的2倍，即16*2*2*2...
 		
 		Node3 newNode = new Node3();
 		newNode.hash = myHash(key.hashCode(), table.length);
