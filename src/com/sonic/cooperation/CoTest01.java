@@ -54,34 +54,42 @@ class SynContainer {
 	int count = 0; // 计数器
 	// 储存 生产
 	public synchronized void push(Steamedbun bun) {
+		// 1、判断
 		// 何时能生产？容器存在空间
 		// 空间不足则不能生产
-		if (count == buns.length) {
+		// 注意：在多线程的横向通信调用中，需要 wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
+		while (count == buns.length) {
 			try {
 				this.wait(); // 线程阻塞，消费者通知生产则解除阻塞
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		// 2、干活
 		// 存在空间则可以生产
 		buns[count] = bun;
 		count++;
+		// 3、通知
 		this.notifyAll(); // 存在数据，通知对方消费
 	}
 	// 获取 消费
 	public synchronized Steamedbun pop() {
+		// 1、判断
 		// 何时消费，容器中是否存在数据
-		// 没有数据只能等待
-		if (count == 0) {
+		// 没有数据只能等待（等待生产者生产好数据，再通知消费者[notifyAll()]）
+		// 注意：在多线程的横向通信调用中，需要 wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
+		while (count == 0) {
 			try {
 				this.wait(); // 线程阻塞，生产者通知消费则解除阻塞
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		// 2、干活
 		// 存在数据则可以消费
 		count--;
 		Steamedbun bun = buns[count];
+		// 3、通知
 		this.notifyAll(); // 存在空间，通知对方生产
 		return bun;
 	}
