@@ -6,11 +6,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class ShareData {
 	private String flag = "A";
-	private int i = 1;
 	private Lock lock = new ReentrantLock();
 	private Condition c1 = lock.newCondition();
 	private Condition c2 = lock.newCondition();
 	private Condition c3 = lock.newCondition();
+	private int i = 1;
 
 	public void print(int cnt) {
 		lock.lock();
