@@ -1,7 +1,7 @@
 package com.sonic.thread;
 
 /**
- * 创建线程方式一：
+ * 创建线程的方式一：
  * 1、创建：继承 Thread类 + 重写 run
  * 2、启动：创建子类对象 + start
  */
