@@ -22,10 +22,9 @@ public class UdpTalkClient {
 		System.out.println("发送方启动中。。。");
 		// 1、使用 DatagramSocket指定端口，创建发送器
 		DatagramSocket client = new DatagramSocket(8888);
-
+		// 2、准备数据，一定要转成字节数组（从控制台获取）
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
-			// 2、准备数据，一定要转成字节数组（从控制台获取）
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			String data = reader.readLine();
 			byte[] datas = data.getBytes();
 			// 3、封装成 DatagramPacket包裹，需要指定目的地
@@ -39,9 +38,7 @@ public class UdpTalkClient {
 				break;
 			}
 		}
-
 		// 5、释放资源
 		client.close();
 	}
-
 }

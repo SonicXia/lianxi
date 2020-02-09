@@ -10,7 +10,7 @@ class Aircondition {
 	private Condition condition = lock.newCondition();
 
 	// jdk5的写法
-	/*public synchronized void increment() throws Exception {
+	public synchronized void incrementJdk5() throws Exception {
 		// 1、判断
 		while (number != 0) { // 不用 if，防止虚假唤醒
 			this.wait();
@@ -20,12 +20,13 @@ class Aircondition {
 		System.out.println(Thread.currentThread().getName() + "\t" + number);
 		// 3、通知
 		this.notifyAll();
-	}*/
+	}
+
 	// jdk8的写法（推荐）
 	// synchronized -> lock;
 	// Object.wait() -> Condition.await();
 	// Object.notifyAll() -> Condition.signalAll()
-	public void increment() throws Exception {
+	public void incrementJdk8() throws Exception {
 		lock.lock();
 		try {
 			// 1、判断
@@ -45,7 +46,7 @@ class Aircondition {
 	}
 
 	// jdk5的写法
-	/*public synchronized void decrement() throws Exception {
+	public synchronized void decrementJdk5() throws Exception {
 		// 1、判断
 		while (number == 0) { // 不用 if，防止虚假唤醒
 			this.wait();
@@ -55,12 +56,13 @@ class Aircondition {
 		System.out.println(Thread.currentThread().getName() + "\t" + number);
 		// 3、通知
 		this.notifyAll();
-	}*/
+	}
+
 	// jdk8的写法（推荐）
 	// synchronized -> lock;
 	// Object.wait() -> Condition.await();
 	// Object.notifyAll() -> Condition.signalAll()
-	public void decrement() throws Exception {
+	public void decrementJdk8() throws Exception {
 		lock.lock();
 		try {
 			// 1、判断
@@ -99,7 +101,7 @@ public class ProdConsumerDemo04 {
 		new Thread(() -> {
 			for (int i = 0; i < 10; i++) {
 				try {
-					aircondition.increment();
+					aircondition.incrementJdk8();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -108,17 +110,20 @@ public class ProdConsumerDemo04 {
 		new Thread(() -> {
 			for (int i = 0; i < 10; i++) {
 				try {
-					aircondition.decrement();
+					aircondition.decrementJdk8();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}, "B").start();
 
+		/**
+		 * 扩增至4个线程，模拟虚假唤醒
+		 */
 		new Thread(() -> {
 			for (int i = 0; i < 10; i++) {
 				try {
-					aircondition.increment();
+					aircondition.incrementJdk8();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -127,7 +132,7 @@ public class ProdConsumerDemo04 {
 		new Thread(() -> {
 			for (int i = 0; i < 10; i++) {
 				try {
-					aircondition.decrement();
+					aircondition.decrementJdk8();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

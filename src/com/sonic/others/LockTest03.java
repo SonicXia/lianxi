@@ -1,6 +1,5 @@
 package com.sonic.others;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**

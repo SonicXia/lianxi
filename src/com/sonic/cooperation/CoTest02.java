@@ -61,7 +61,7 @@ class Tv{
 	//表演
 	public synchronized void play(String voice) {
 		// 演员等待
-		// 注意：在多线程的横向通信调用中，需要 wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
+		// 注意：在多线程的横向通信调用中，需要 Object.wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
 		while (!flag) {
 			try {
 				this.wait();
@@ -81,7 +81,7 @@ class Tv{
 	// 观看
 	public synchronized void watch() {
 		// 观众等待
-		// 注意：在多线程的横向通信调用中，需要 wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
+		// 注意：在多线程的横向通信调用中，需要 Object.wait()的地方，要用 while判断而不是 if，防止在多线程环境下被虚假唤醒
 		while (flag) {
 			try {
 				this.wait();

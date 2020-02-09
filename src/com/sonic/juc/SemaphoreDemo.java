@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 信号灯
- *
  * 在信号量上我们定义两种操作：
  *  1、acquire（获取）：当一个线程调用 acquire操作时，它要么通过成功获取信号量（信号量减1），
  *                      要么一直等下去，直到有线程释放信号量，或超时。
