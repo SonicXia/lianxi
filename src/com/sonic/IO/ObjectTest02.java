@@ -10,7 +10,7 @@ public class ObjectTest02 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// 写出（序列化）
-		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("i://obj.ser")));
+		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("d://obj.ser")));
 		// 操作数据类型 + 数据
 		oos.writeUTF("不要加班");
 		oos.writeInt(18);
@@ -24,7 +24,7 @@ public class ObjectTest02 {
 		oos.close();
 
 		// 读取（反序列化）
-		ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream("i://obj.ser")));
+		ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream("d://obj.ser")));
 		// 顺序与写出一致
 		String str = ois.readUTF();
 		int i = ois.readInt();

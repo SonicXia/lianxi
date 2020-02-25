@@ -1,6 +1,6 @@
 package com.sonic.interview.juc;
 
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 class HoldLockThread implements Runnable {
     private String lockA;
@@ -38,5 +38,14 @@ public class DeadLockThreadDemo {
         String lockB = "lockB";
         new Thread(new HoldLockThread(lockA, lockB), "Thread-AAA").start();
         new Thread(new HoldLockThread(lockB, lockA), "Thread-BBB").start();
+
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,
+        3,
+        10,
+        TimeUnit.SECONDS,
+        new LinkedBlockingQueue<Runnable>(8),
+        Executors.defaultThreadFactory(),
+        new ThreadPoolExecutor.AbortPolicy());
+
     }
 }
